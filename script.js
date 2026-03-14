@@ -1,3 +1,6 @@
+let movies = []
+let index = 0
+
 const button = document.getElementById("searchBtn")
 const results = document.getElementById("results")
 const loading = document.getElementById("loading")
@@ -14,52 +17,85 @@ button.onclick = async () => {
     results.innerHTML = ""
     loading.classList.remove("hidden")
 
-    try{
+    const res = await fetch(`https://api.boxdbrain.cc/recommend?user=${username}`)
+    const data = await res.json()
 
-        const res = await fetch(`https://api.boxdbrain.cc/recommend?user=${username}`)
+    loading.classList.add("hidden")
 
-        const data = await res.json()
+    movies = data.movies
+    index = 0
 
-        loading.classList.add("hidden")
-
-        renderMovies(data.movies)
-
-    }catch(e){
-
-        loading.innerText = "Error loading recommendations"
-
-    }
+    showMovie()
 
 }
 
-function renderMovies(movies){
+function showMovie(){
 
-    results.innerHTML = ""
+    const movie = movies[index]
 
-    movies.forEach(movie => {
+    const slug = movie.title
+        .toLowerCase()
+        .replace(/[^a-z0-9 ]/g,"")
+        .replace(/ /g,"-")
 
-        const card = document.createElement("div")
+    const link = `https://letterboxd.com/film/${slug}/`
 
-        card.className = "movie-card bg-zinc-800 rounded-lg overflow-hidden p-3"
+    results.innerHTML = `
 
-        card.innerHTML = `
+    <div class="bg-zinc-800 rounded-xl overflow-hidden max-w-md mx-auto">
 
-        <h3 class="font-semibold text-sm mb-1">
+        <img src="${movie.poster || ''}" class="w-full">
+
+        <div class="p-4">
+
+        <h2 class="text-xl font-bold mb-1">
+        <a href="${link}" target="_blank" class="hover:text-green-400">
         ${movie.title}
-        </h3>
+        </a>
+        </h2>
 
-        <p class="text-xs text-zinc-400">
+        <p class="text-sm text-zinc-400 mb-2">
+        ${movie.year || ""}
+        </p>
+
+        <p class="text-sm text-yellow-400 mb-3">
+        ⭐ ${movie.rating ? movie.rating.toFixed(1) : ""}
+        </p>
+
+        <p class="text-sm text-zinc-300">
         ${movie.reason}
         </p>
 
-        <p class="text-yellow-400 text-xs mt-2">
-        Score: ${movie.score.toFixed(1)}
+        <p class="text-xs text-zinc-500 mt-3">
+        <a href="${link}" target="_blank" class="hover:text-green-400">
+        View on Letterboxd
+        </a>
         </p>
 
-        `
+        </div>
 
-        results.appendChild(card)
+    </div>
 
-    })
+    <div class="text-center mt-6">
+
+        <button onclick="nextMovie()" class="bg-green-500 hover:bg-green-400 px-6 py-3 rounded text-black font-semibold">
+        Show Another
+        </button>
+
+    </div>
+
+    `
+
+}
+
+function nextMovie(){
+
+    index++
+
+    if(index >= movies.length){
+        index = 0
+    }
+
+    showMovie()
 
 }

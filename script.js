@@ -1,5 +1,4 @@
 let movies = []
-let index = 0
 
 const button = document.getElementById("searchBtn")
 const results = document.getElementById("results")
@@ -23,54 +22,63 @@ button.onclick = async () => {
     loading.classList.add("hidden")
 
     movies = data.movies
-    index = 0
 
     showMovie()
+}
 
+function slugify(title){
+    return title
+        .toLowerCase()
+        .replace(/[^a-z0-9 ]/g,"")
+        .replace(/ /g,"-")
 }
 
 function showMovie(){
 
-    const movie = movies[index]
+    if(movies.length === 0){
 
-    const slug = movie.title
-        .toLowerCase()
-        .replace(/[^a-z0-9 ]/g,"")
-        .replace(/ /g,"-")
+        results.innerHTML = `
+        <p class="text-center text-zinc-400">
+        No more recommendations
+        </p>`
+        return
+    }
 
-    const link = `https://letterboxd.com/film/${slug}/`
+    const movie = movies.shift()
+
+    const movieSlug = slugify(movie.title)
+    const movieLink = `https://letterboxd.com/film/${movieSlug}/`
+
+    const likedMatch = movie.reason.match(/liked (.*)/)
+    const likedTitle = likedMatch ? likedMatch[1] : ""
+
+    const likedSlug = slugify(likedTitle)
+    const likedLink = `https://letterboxd.com/film/${likedSlug}/`
 
     results.innerHTML = `
 
     <div class="bg-zinc-800 rounded-xl overflow-hidden max-w-md mx-auto">
 
-        <img src="${movie.poster || ''}" class="w-full">
+        ${movie.poster ? `<img src="${movie.poster}" class="w-full">` : ""}
 
-        <div class="p-4">
+        <div class="p-5">
 
-        <h2 class="text-xl font-bold mb-1">
-        <a href="${link}" target="_blank" class="hover:text-green-400">
-        ${movie.title}
-        </a>
-        </h2>
+            <h2 class="text-xl font-bold mb-2">
+                <a href="${movieLink}" target="_blank" class="text-green-400 hover:underline">
+                ${movie.title} (${movie.year || ""})
+                </a>
+            </h2>
 
-        <p class="text-sm text-zinc-400 mb-2">
-        ${movie.year || ""}
-        </p>
+            <p class="text-yellow-400 mb-4">
+            ⭐ ${movie.rating ? movie.rating.toFixed(1) : "?"}/10 on IMDb
+            </p>
 
-        <p class="text-sm text-yellow-400 mb-3">
-        ⭐ ${movie.rating ? movie.rating.toFixed(1) : ""}
-        </p>
-
-        <p class="text-sm text-zinc-300">
-        ${movie.reason}
-        </p>
-
-        <p class="text-xs text-zinc-500 mt-3">
-        <a href="${link}" target="_blank" class="hover:text-green-400">
-        View on Letterboxd
-        </a>
-        </p>
+            <p class="text-zinc-300">
+            Because you liked 
+            <a href="${likedLink}" target="_blank" class="text-green-400 hover:underline">
+            ${likedTitle}
+            </a>
+            </p>
 
         </div>
 
@@ -78,24 +86,12 @@ function showMovie(){
 
     <div class="text-center mt-6">
 
-        <button onclick="nextMovie()" class="bg-green-500 hover:bg-green-400 px-6 py-3 rounded text-black font-semibold">
-        Show Another
+        <button onclick="showMovie()" 
+        class="bg-green-500 hover:bg-green-400 px-6 py-3 rounded text-black font-semibold">
+        Another recommendation
         </button>
 
     </div>
 
     `
-
-}
-
-function nextMovie(){
-
-    index++
-
-    if(index >= movies.length){
-        index = 0
-    }
-
-    showMovie()
-
 }

@@ -1,0 +1,11 @@
+body{
+    font-family: system-ui, sans-serif;
+}
+
+.movie-card{
+    transition: transform 0.2s ease;
+}
+
+.movie-card:hover{
+    transform: scale(1.05);
+}

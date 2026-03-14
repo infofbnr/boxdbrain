@@ -77,6 +77,7 @@ function renderMovie(movie){
 
     </div>
     `
+    results.scrollIntoView({ behavior: "smooth", block: "center" })
 }
 async function showMovie(){
 

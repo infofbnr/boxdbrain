@@ -1,56 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="boxdbrain.png" type="image/png">
+        <title>boxdbrain</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
 
-<title>boxdbrain</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-<script src="https://cdn.tailwindcss.com"></script>
+    <body class="bg-zinc-900 text-white min-h-screen">
 
-<link rel="stylesheet" href="style.css">
+        <div class="max-w-5xl mx-auto px-6 py-12">
 
-</head>
+            <h1 class="text-4xl font-bold text-green-400 text-center mb-2">
+            boxdbrain
+            </h1>
 
-<body class="bg-zinc-900 text-white min-h-screen">
+            <p class="text-center text-zinc-400 mb-10">
+            Get movie recommendations from your Letterboxd diary
+            </p>
 
-<div class="max-w-5xl mx-auto px-6 py-12">
+            <div class="flex gap-3 mb-10">
 
-<h1 class="text-4xl font-bold text-green-400 text-center mb-2">
-boxdbrain
-</h1>
+            <input
+            id="username"
+            placeholder="Letterboxd username"
+            class="flex-1 p-3 rounded bg-zinc-800 border border-zinc-700"
+            />
 
-<p class="text-center text-zinc-400 mb-10">
-Get movie recommendations from your Letterboxd diary
-</p>
+            <button
+            id="searchBtn"
+            class="bg-green-500 hover:bg-green-400 px-6 py-3 rounded font-semibold text-black"
+            >
+            Recommend
+            </button>
 
-<div class="flex gap-3 mb-10">
+            </div>
 
-<input
-id="username"
-placeholder="Letterboxd username"
-class="flex-1 p-3 rounded bg-zinc-800 border border-zinc-700"
-/>
+            <div id="loading" class="hidden text-center text-zinc-400 mb-6">
+            Analyzing your diary...
+            </div>
 
-<button
-id="searchBtn"
-class="bg-green-500 hover:bg-green-400 px-6 py-3 rounded font-semibold text-black"
->
-Recommend
-</button>
+            <div id="results" class="mt-10"></div>
 
-</div>
+        </div>
 
-<div id="loading" class="hidden text-center text-zinc-400 mb-6">
-Analyzing your diary...
-</div>
+        <script src="script.js"></script>
 
-<div id="results" class="mt-10"></div>
-
-</div>
-
-<script src="script.js"></script>
-
-</body>
+    </body>
 </html>

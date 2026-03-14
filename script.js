@@ -32,19 +32,7 @@ function slugify(title){
         .replace(/[^a-z0-9 ]/g,"")
         .replace(/ /g,"-")
 }
-
-function showMovie(){
-
-    if(movies.length === 0){
-
-        results.innerHTML = `
-        <p class="text-center text-zinc-400">
-        No more recommendations
-        </p>`
-        return
-    }
-
-    const movie = movies.shift()
+function renderMovie(movie){
 
     const movieSlug = slugify(movie.title)
     const movieLink = `https://letterboxd.com/film/${movieSlug}/`
@@ -57,30 +45,26 @@ function showMovie(){
 
     results.innerHTML = `
 
-    <div class="bg-zinc-800 rounded-xl overflow-hidden max-w-md mx-auto">
+    <div class="bg-zinc-800 rounded-xl p-6 max-w-md mx-auto text-center">
 
-        ${movie.poster ? `<img src="${movie.poster}" class="w-full">` : ""}
+        ${movie.poster ? `<img src="${movie.poster}" class="w-40 mx-auto rounded mb-4">` : ""}
 
-        <div class="p-5">
+        <h2 class="text-xl font-bold mb-1">
+            <a href="${movieLink}" target="_blank" class="hover:text-green-400">
+            ${movie.title} (${movie.year || ""})
+            </a>
+        </h2>
 
-            <h2 class="text-xl font-bold mb-2">
-                <a href="${movieLink}" target="_blank" class="text-green-400 hover:underline">
-                ${movie.title} (${movie.year || ""})
-                </a>
-            </h2>
+        <p class="text-yellow-400 mb-3">
+            ⭐ ${movie.rating.toFixed(1)}/10 on TMDB
+        </p>
 
-            <p class="text-yellow-400 mb-4">
-            ⭐ ${movie.rating ? movie.rating.toFixed(1) : "?"}/10 on IMDb
-            </p>
-
-            <p class="text-zinc-300">
+        <p class="text-zinc-300">
             Because you liked 
             <a href="${likedLink}" target="_blank" class="text-green-400 hover:underline">
             ${likedTitle}
             </a>
-            </p>
-
-        </div>
+        </p>
 
     </div>
 
@@ -92,6 +76,23 @@ function showMovie(){
         </button>
 
     </div>
-
     `
+}
+async function showMovie(){
+
+    if(movies.length === 0){
+
+        const username = document.getElementById("username").value.trim()
+
+        const res = await fetch(`https://api.boxdbrain.cc/recommend?user=${username}`)
+        const data = await res.json()
+
+        movies = data.movies
+
+    }
+
+    const movie = movies.shift()
+
+    renderMovie(movie)
+
 }

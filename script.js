@@ -40,33 +40,22 @@ function renderMovies(movies){
 
         const card = document.createElement("div")
 
-        card.className = "movie-card bg-zinc-800 rounded-lg overflow-hidden"
+        card.className = "movie-card bg-zinc-800 rounded-lg overflow-hidden p-3"
 
         card.innerHTML = `
 
-        <img src="${movie.poster}" class="w-full">
-
-        <div class="p-3">
-
         <h3 class="font-semibold text-sm mb-1">
-        ${movie.title} (${movie.year})
+        ${movie.title}
         </h3>
 
-        <p class="text-yellow-400 text-sm">
-        ⭐ ${movie.rating.toFixed(1)}
-        </p>
-
-        <p class="text-xs text-zinc-400 mt-1">
+        <p class="text-xs text-zinc-400">
         ${movie.reason}
         </p>
 
-        <a href="${movie.tmdb}"
-        target="_blank"
-        class="text-green-400 text-xs mt-2 inline-block">
-        View details
-        </a>
+        <p class="text-yellow-400 text-xs mt-2">
+        Score: ${movie.score.toFixed(1)}
+        </p>
 
-        </div>
         `
 
         results.appendChild(card)

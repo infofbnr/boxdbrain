@@ -2,115 +2,126 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>boxdbrain</title>
 
     <link rel="icon" href="boxdbrain.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body class="bg-gradient-to-b from-zinc-950 to-zinc-900 text-white min-h-screen">
 
-    <!-- NAVBAR -->
-    <header class="border-b border-zinc-800">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
-            <div class="flex items-center gap-3">
-                <img src="boxdbrain.png" class="w-8 h-8 rounded">
-                <span class="font-bold text-lg text-green-400">boxdbrain</span>
-            </div>
+<header class="border-b border-zinc-800">
 
-            <span class="text-zinc-500 text-sm">
-                Letterboxd AI recommendations
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+        <div class="flex items-center gap-3">
+            <img src="boxdbrain.png" class="w-8 h-8 rounded">
+            <span class="font-bold text-lg text-green-400">
+                boxdbrain
             </span>
-
-        </div>
-    </header>
-
-
-    <!-- HERO -->
-    <section class="max-w-6xl mx-auto px-6 py-16 text-center">
-
-        <img
-            src="boxdbrain.png"
-            class="w-28 h-28 mx-auto rounded-full mb-6 shadow-lg"
-        >
-
-        <h1 class="text-5xl font-bold mb-4">
-            Find your
-            <span class="text-green-400">
-                next favorite film
-            </span>
-        </h1>
-
-        <p class="text-zinc-400 max-w-xl mx-auto mb-12">
-            boxdbrain analyzes your Letterboxd diary and recommends movies
-            based on the films you love.
-        </p>
-
-
-        <!-- SEARCH CARD -->
-        <div
-            class="bg-zinc-900/80 backdrop-blur border border-zinc-800
-                   rounded-2xl p-6 max-w-xl mx-auto shadow-xl"
-        >
-
-            <div class="flex flex-col md:flex-row gap-4">
-
-                <input
-                    id="username"
-                    placeholder="Enter your Letterboxd username"
-                    class="flex-1 p-4 rounded-lg bg-zinc-800 border border-zinc-700
-                           focus:outline-none focus:ring-2 focus:ring-green-500"
-                >
-
-                <button
-                    id="searchBtn"
-                    class="bg-green-500 hover:bg-green-400 px-8 py-4
-                           rounded-lg font-semibold text-black transition"
-                >
-                    Recommend
-                </button>
-
-            </div>
-
         </div>
 
-    </section>
+        <span class="text-zinc-500 text-sm">
+            Letterboxd AI recommendations
+        </span>
 
-
-    <!-- LOADING -->
-    <div
-        id="loading"
-        class="hidden text-center text-zinc-400 text-lg"
-    >
-        Analyzing your diary...
     </div>
 
-
-    <!-- RESULTS -->
-    <section class="max-w-6xl mx-auto px-6 pb-20">
-
-        <div
-            id="results"
-            class="grid gap-10 place-items-center"
-        ></div>
-
-    </section>
+</header>
 
 
-    <!-- FOOTER -->
-    <footer
-        class="border-t border-zinc-800 py-6 text-center text-zinc-500 text-sm"
+
+<section class="max-w-6xl mx-auto px-6 py-16 text-center">
+
+    <img
+        src="boxdbrain.png"
+        class="w-28 h-28 mx-auto rounded-full mb-6 shadow-lg"
     >
-        Powered by TMDB • Not affiliated with Letterboxd
-    </footer>
+
+    <h1 class="text-5xl font-bold mb-4">
+
+        Find your
+
+        <span class="text-green-400">
+            next favorite film
+        </span>
+
+    </h1>
+
+    <p class="text-zinc-400 max-w-xl mx-auto mb-12">
+        boxdbrain analyzes your Letterboxd diary and recommends movies
+        based on the films you love.
+    </p>
 
 
-    <script src="script.js"></script>
+
+    <div
+        class="bg-zinc-900/80 backdrop-blur border border-zinc-800
+               rounded-2xl p-6 max-w-xl mx-auto shadow-xl"
+    >
+
+        <div class="flex flex-col md:flex-row gap-4">
+
+            <input
+                id="username"
+                placeholder="Enter your Letterboxd username"
+                class="flex-1 p-4 rounded-lg bg-zinc-800 border border-zinc-700
+                       focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+
+            <button
+                id="searchBtn"
+                class="bg-green-500 hover:bg-green-400 px-8 py-4
+                       rounded-lg font-semibold text-black transition"
+            >
+                Recommend
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<div
+    id="loading"
+    class="hidden text-center text-zinc-400 text-lg mb-8"
+>
+    Analyzing your diary...
+</div>
+
+
+
+<section class="max-w-6xl mx-auto px-6 pb-20">
+
+    <div
+        id="results"
+        class="grid gap-10 place-items-center"
+    ></div>
+
+</section>
+
+
+
+<footer
+    class="border-t border-zinc-800 py-6 text-center text-zinc-500 text-sm"
+>
+    Powered by TMDB • Not affiliated with Letterboxd
+</footer>
+
+
+<script src="script.js"></script>
 
 </body>
 

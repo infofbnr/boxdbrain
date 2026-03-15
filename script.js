@@ -35,7 +35,11 @@ button.onclick = async () => {
 
 async function loadMovies() {
 
-    const res = await fetch(`https://api.boxdbrain.cc/recommend?user=${username}`)
+    const genre = document.getElementById("genre").value
+
+    const res = await fetch(
+    `https://api.boxdbrain.cc/recommend?user=${username}&genre=${genre}`
+    )
     const data = await res.json()
 
     movies = data.movies || []
